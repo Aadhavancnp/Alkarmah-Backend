@@ -1,22 +1,20 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
+import express, { json } from "express";
+import cors from "cors";
 
-const authRoutes = require("./routes/auth");
-const productRoutes = require("./routes/products");
-const orderRoutes = require("./routes/orders");
-const cartRoutes = require("./routes/cart");
-const wishlistRoutes = require("./routes/wishlist");
+import authRoutes from "./routes/auth.js";
+import productRoutes from "./routes/products.js";
+import orderRoutes from "./routes/orders.js";
+import cartRoutes from "./routes/cart.js";
+import wishlistRoutes from "./routes/wishlist.js";
 const app = express();
-const connectDb=require("./Config/Connection")
+import connectDb from "./Config/Connection.js";
 app.use(cors());
-app.use(express.json());
+app.use(json());
 connectDb()
-
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+app.listen(3000, () => console.log("Server running on port 3000"));

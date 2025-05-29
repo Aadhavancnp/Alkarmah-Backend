@@ -1,6 +1,6 @@
-const Product = require("../models/Product");
+import Product from "../models/Product.js";
 
-exports.createProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
   try {
     const product = new Product(req.body);
     await product.save();
@@ -11,7 +11,7 @@ exports.createProduct = async (req, res) => {
   }
 };
 
-exports.updateProduct = async (req, res) => {
+export const updateProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!product) {
@@ -24,7 +24,7 @@ exports.updateProduct = async (req, res) => {
   }
 };
 
-exports.deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
     if (!product) {
@@ -37,7 +37,7 @@ exports.deleteProduct = async (req, res) => {
   }
 };
 
-exports.getAllProducts = async (req, res) => {
+export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
     return res.status(200).json(products);
@@ -47,7 +47,7 @@ exports.getAllProducts = async (req, res) => {
   }
 };
 
-exports.getProductById = async (req, res) => {
+export const getProductById = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) {

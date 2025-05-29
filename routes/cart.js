@@ -1,10 +1,9 @@
+import { Router } from "express";
+const router = Router();
+import { addToCart, removeFromCart, getCart } from "../controllers/cartController.js";
 
-const express = require("express");
-const router = express.Router();
-const ctrl = require("../controllers/cartController");
+router.post("/add", addToCart);
+router.post("/remove", removeFromCart);
+router.get("/", getCart);
 
-router.post("/add", ctrl.addToCart);
-router.post("/remove", ctrl.removeFromCart);
-router.get("/", ctrl.getCart);
-
-module.exports = router;
+export default router;

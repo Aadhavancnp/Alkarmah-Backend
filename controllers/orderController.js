@@ -1,6 +1,6 @@
-const Order = require("../models/Order");
+import Order from "../models/Order.js";
 
-exports.placeOrder = async (req, res) => {
+export const placeOrder = async (req, res) => {
   try {
     const order = new Order(req.body);
     await order.save();
@@ -11,7 +11,7 @@ exports.placeOrder = async (req, res) => {
   }
 };
 
-exports.getUserOrders = async (req, res) => {
+export const getUserOrders = async (req, res) => {
   try {
     const userId = req.query.userId;
     if (!userId) {
@@ -25,7 +25,7 @@ exports.getUserOrders = async (req, res) => {
   }
 };
 
-exports.getAllOrders = async (req, res) => {
+export const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find().populate("user items.product");
     return res.status(200).json(orders);
@@ -35,7 +35,7 @@ exports.getAllOrders = async (req, res) => {
   }
 };
 
-exports.updateOrderStatus = async (req, res) => {
+export const updateOrderStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;

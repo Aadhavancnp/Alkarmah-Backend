@@ -1,6 +1,6 @@
-const User = require("../models/User");
+import User from "../models/User.js";
 
-exports.addToCart = async (req, res) => {
+export const addToCart = async (req, res) => {
   try {
     const { userId, productId, quantity } = req.body;
     if (!userId || !productId || !quantity) {
@@ -28,7 +28,7 @@ exports.addToCart = async (req, res) => {
   }
 };
 
-exports.removeFromCart = async (req, res) => {
+export const removeFromCart = async (req, res) => {
   try {
     const { userId, productId } = req.body;
     if (!userId || !productId) {
@@ -53,7 +53,7 @@ exports.removeFromCart = async (req, res) => {
   }
 };
 
-exports.getCart = async (req, res) => {
+export const getCart = async (req, res) => {
   try {
     const { userId } = req.query;
     if (!userId) return res.status(400).json({ message: "Missing userId in query" });

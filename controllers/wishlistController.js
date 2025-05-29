@@ -1,6 +1,6 @@
-const User = require("../models/User");
+import User from "../models/User.js";
 
-exports.addToWishlist = async (req, res) => {
+export const addToWishlist = async (req, res) => {
   try {
     const { userId, productId } = req.body;
     const user = await User.findById(userId);
@@ -20,7 +20,7 @@ exports.addToWishlist = async (req, res) => {
   }
 };
 
-exports.removeFromWishlist = async (req, res) => {
+export const removeFromWishlist = async (req, res) => {
   try {
     const { userId, productId } = req.body;
     const user = await User.findById(userId);
@@ -40,7 +40,7 @@ exports.removeFromWishlist = async (req, res) => {
   }
 };
 
-exports.getWishlist = async (req, res) => {
+export const getWishlist = async (req, res) => {
   try {
     const user = await User.findById(req.query.userId).populate("favorites");
     if (!user) return res.status(404).json({ message: "User not found" });

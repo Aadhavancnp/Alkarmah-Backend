@@ -1,11 +1,10 @@
+import { Router } from "express";
+const router = Router();
+import { placeOrder, getUserOrders, getAllOrders, updateOrderStatus } from "../controllers/orderController.js";
 
-const express = require("express");
-const router = express.Router();
-const ctrl = require("../controllers/orderController");
+router.post("/", placeOrder);
+router.get("/user", getUserOrders);
+router.get("/", getAllOrders);
+router.put("/:id/status", updateOrderStatus);
 
-router.post("/", ctrl.placeOrder);
-router.get("/user", ctrl.getUserOrders);
-router.get("/", ctrl.getAllOrders);
-router.put("/:id/status", ctrl.updateOrderStatus);
-
-module.exports = router;
+export default router;
