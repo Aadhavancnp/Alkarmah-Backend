@@ -1,4 +1,5 @@
 import Category from "../models/Categories.js";
+import Product from "../models/Product.js";
 
 export const createCategory = async (req, res) => {
   try {
@@ -106,6 +107,49 @@ export const deleteCategory = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Failed to delete category",
+      error: error.message,
+    });
+  }
+};
+
+export const getProductsByCategory = async (req, res) => {
+  try {
+    const { category } = req.body;
+
+    if (!category) {
+      return res.status(400).json({
+        success: false,
+        message: "Category is required in request body",
+      });
+    }
+
+    // First check if category exists
+    const categoryExists = await Category.findOne({
+      $or: [{ "name.en": category }, { "name.ar": category }],
+    });
+
+    if (!categoryExists) {
+      return res.status(404).json({
+        success: false,
+        message: "Category not found",
+      });
+    }
+
+    // Get all products with this category
+    const products = await Product.find({ category }).select(
+      "_id name description price image stock category status"
+    );
+
+    return res.status(200).json({
+      success: true,
+      count: products.length,
+      data: products,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch products by category",
       error: error.message,
     });
   }
