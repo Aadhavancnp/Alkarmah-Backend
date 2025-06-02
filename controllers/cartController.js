@@ -33,13 +33,6 @@ export const addToCart = async (req, res) => {
       });
     }
 
-    if (product.stock < quantity) {
-      return res.status(400).json({
-        success: false,
-        message: "Insufficient stock available",
-      });
-    }
-
     // Check if product already in cart
     const existingItemIndex = user.cart.findIndex(
       (item) => item.product.toString() === productId
@@ -55,9 +48,14 @@ export const addToCart = async (req, res) => {
         });
       }
       user.cart[existingItemIndex].quantity = newQuantity;
+      user.cart[existingItemIndex].price = product.price * newQuantity;
     } else {
       // Add new item to cart
-      user.cart.push({ product: productId, quantity });
+      user.cart.push({
+        product: productId,
+        quantity,
+        price: product.price * quantity,
+      });
     }
 
     await user.save();
@@ -181,6 +179,7 @@ export const updateCartItemQuantity = async (req, res) => {
     }
 
     user.cart[cartItemIndex].quantity = quantity;
+    user.cart[cartItemIndex].price = product.price * quantity;
     await user.save();
 
     // Get updated cart with populated product details

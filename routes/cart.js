@@ -12,7 +12,7 @@ import {
 router.post("/add", addToCart);
 router.post("/remove", removeFromCart);
 router.put("/update-quantity", updateCartItemQuantity);
-router.get("/", getCart);
+router.post("/", getCart);
 router.delete("/clear", clearCart);
 
 export default router;
