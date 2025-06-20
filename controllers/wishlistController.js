@@ -2,7 +2,10 @@ import User from "../models/User.js";
 
 export const addToWishlist = async (req, res) => {
   try {
-    const { userId, productId } = req.body;
+    let { userId, productId } = req.body;
+
+    userId = "6849c98ab0cc32d29bcfe4bd"; // Hardcoded userId for testing
+    
     const user = await User.findById(userId);
     if (!user) return res.status(404).json({ message: "User not found" });
 

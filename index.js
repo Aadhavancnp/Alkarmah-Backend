@@ -9,6 +9,7 @@ import orderRoutes from "./routes/orders.js";
 import cartRoutes from "./routes/cart.js";
 import wishlistRoutes from "./routes/wishlist.js";
 import categoryRoutes from "./routes/categories.js";
+import healthRoutes from "./routes/healthCheck.js";
 
 const app = express();
 import connectDb from "./Config/Connection.js";
@@ -21,6 +22,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api", healthRoutes)
 
 app.listen(process.env.PORT, () =>
   console.log("Server running on port " + process.env.PORT)
